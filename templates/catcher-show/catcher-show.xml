@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>catcher-show</Name>
-  <Repository>ghcr.io/xruchai86/catcher-show:latest</Repository>
+  <Repository>ghcr.io/Xruchai86/catcher-show:latest</Repository>
   <Registry>https://ghcr.io/</Registry>
   <Network>bridge</Network>
   <MyIP/>
@@ -38,7 +38,7 @@
   <Category>Tools: Status:Stable Network:Management</Category>
   <WebUI>http://[IP]:[PORT:8090]</WebUI>
   <TemplateURL/>
-  <Icon>https://raw.githubusercontent.com/xruchai86/homelab-icons/main/catcher-show.png</Icon>
+  <Icon>https://cdn-icons-png.flaticon.com/512/1067/1067256.png</Icon>
   <ExtraParams>--restart=unless-stopped</ExtraParams>
   <PostArgs/>
   <CPUset/>

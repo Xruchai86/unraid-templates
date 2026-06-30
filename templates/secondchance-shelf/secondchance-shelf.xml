@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>SecondChance-Shelf</Name>
-  <Repository>ghcr.io/xruchai86/secondchance-shelf:latest</Repository>
+  <Repository>ghcr.io/Xruchai86/secondchance-shelf:latest</Repository>
   <Registry>https://ghcr.io/</Registry>
   <Network>host</Network>
   <Privileged>false</Privileged>
-  <Support>https://github.com/xruchai86/secondchance-shelf</Support>
-  <Project>https://github.com/xruchai86/secondchance-shelf</Project>
+  <Support>https://github.com/DEIN-GITHUB-USER/secondchance-shelf</Support>
+  <Project>https://github.com/DEIN-GITHUB-USER/secondchance-shelf</Project>
   <Overview>Local-first Netzwerk-Scanner: Geraete-Discovery (nmap/ARP), VLAN-Zuordnung, Topologie, regelbasierter Sicherheits-Report, OPNsense-Empfehlungen + PDF-Umsetzungsplan. Alles bleibt lokal, keine Telemetrie. Host-Netzwerk noetig fuer L2-Discovery.</Overview>
   <Category>Tools: Network:Management Security:</Category>
   <WebUI>http://[IP]:8848</WebUI>
-  <Icon>https://raw.githubusercontent.com/xruchai86/homelab-icons/main/secondchance-shelf.png</Icon>
+  <Icon>https://raw.githubusercontent.com/DEIN-GITHUB-USER/secondchance-shelf/main/icon.png</Icon>
   <ExtraParams>--cap-add=NET_RAW --cap-add=NET_ADMIN</ExtraParams>
   <Config Name="AppData" Target="/data" Default="/mnt/user/appdata/secondchance-shelf" Mode="rw" Description="SQLite-DB und Scan-Historie (bleibt lokal)" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/secondchance-shelf</Config>
   <Config Name="NETWORK_NAME" Target="NETWORK_NAME" Default="Homelab" Mode="" Description="Anzeigename des Netzwerks" Type="Variable" Display="always" Required="false" Mask="false">Homelab</Config>
