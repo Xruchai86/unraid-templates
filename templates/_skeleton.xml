@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- VORLAGE: kopieren, umbenennen, Felder mit EDIT ausfuellen. Keine echten Daten eintragen. -->
+<Container version="2">
+  <Name>App-Name</Name>
+  <Repository>ghcr.io/xruchai86/REPO-NAME:latest</Repository>   <!-- EDIT -->
+  <Registry>https://ghcr.io/</Registry>
+  <Network>bridge</Network>                                            <!-- EDIT: bridge | host -->
+  <Privileged>false</Privileged>
+  <Support>https://github.com/xruchai86/REPO-NAME</Support>     <!-- EDIT -->
+  <Project>https://github.com/xruchai86/REPO-NAME</Project>     <!-- EDIT -->
+  <Overview>Kurzbeschreibung der App.</Overview>                       <!-- EDIT -->
+  <Category>Tools: Network:Management</Category>
+  <WebUI>http://[IP]:[PORT:8080]</WebUI>                               <!-- EDIT Port -->
+  <Icon>https://raw.githubusercontent.com/xruchai86/REPO-NAME/main/icon.png</Icon> <!-- EDIT -->
+  <ExtraParams></ExtraParams>
+  <Config Name="WebUI" Target="8080" Default="8080" Mode="tcp" Description="Web-Port" Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="AppData" Target="/data" Default="/mnt/user/appdata/REPO-NAME" Mode="rw" Description="Persistente Daten" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/REPO-NAME</Config>
+  <!-- Beispiel Secret (leer, maskiert): -->
+  <Config Name="API_KEY" Target="API_KEY" Default="" Mode="" Description="API-Key (leer lassen, beim Einrichten setzen)" Type="Variable" Display="always" Required="false" Mask="true"></Config>
+</Container>
