@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Container version="2">
+  <Name>captive-portal-manager</Name>
+  <Repository>ghcr.io/Xruchai86/captive-portal-manager:latest</Repository>
+  <Registry>https://ghcr.io/</Registry>
+  <Network>bridge</Network>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Overview>Captive Portal Manager fuer OPNsense. Verwaltet Gaeste-WLAN Voucher (erstellen, deaktivieren, loeschen), generiert QR-Codes fuer automatischen Login und zeigt aktive Sessions an. Web-UI auf Port 8080.</Overview>
+  <Category>Network:Management Tools:System</Category>
+  <WebUI>http://[IP]:[PORT:8080]</WebUI>
+  <Icon>https://raw.githubusercontent.com/DEIN-GITHUB-USER/captive-portal-manager/main/icon.png</Icon>
+
+  <!-- Port -->
+  <Config Name="WebUI Port" Target="8080" Default="8080" Mode="tcp"
+    Description="Port fuer die Web-Oberflaeche des Captive Portal Managers."
+    Type="Port" Display="always" Required="true" Mask="false">8080</Config>
+
+  <!-- Volume -->
+  <Config Name="Datenbank" Target="/app/data" Default="/mnt/user/appdata/captive-portal-manager/data" Mode="rw"
+    Description="Persistenter Speicher fuer die SQLite Datenbank mit allen Vouchern."
+    Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/captive-portal-manager/data</Config>
+
+  <!-- OPNsense -->
+  <Config Name="OPNsense Host" Target="OPNSENSE_HOST" Default="opnsense.yourdomain.de" Mode=""
+    Description="Hostname oder IP deiner OPNsense Firewall. Wird fuer API-Aufrufe verwendet."
+    Type="Variable" Display="always" Required="true" Mask="false">opnsense.yourdomain.de</Config>
+
+  <Config Name="OPNsense API Key" Target="OPNSENSE_API_KEY" Default="" Mode=""
+    Description="API Key aus OPNsense: System -> Access -> Users -> API Keys."
+    Type="Variable" Display="always" Required="true" Mask="false"></Config>
+
+  <Config Name="OPNsense API Secret" Target="OPNSENSE_API_SECRET" Default="" Mode=""
+    Description="API Secret zum API Key."
+    Type="Variable" Display="always" Required="true" Mask="true"></Config>
+
+  <!-- Captive Portal -->
+  <Config Name="Captive Portal Zone ID" Target="CAPTIVE_PORTAL_ZONE_ID" Default="0" Mode=""
+    Description="Zone ID des Captive Portals in OPNsense. Erste Zone = 0."
+    Type="Variable" Display="always" Required="true" Mask="false">0</Config>
+
+  <Config Name="Captive Portal URL" Target="CAPTIVE_PORTAL_URL" Default="https://opnsense.yourdomain.de:8000" Mode=""
+    Description="Basis-URL des Captive Portals. Port = 8000 + Zone ID (Zone 0 = :8000, Zone 1 = :8001). Diese URL wird in den QR-Code kodiert."
+    Type="Variable" Display="always" Required="true" Mask="false">https://opnsense.yourdomain.de:8000</Config>
+
+  <Config Name="Voucher Provider" Target="VOUCHER_PROVIDER" Default="Vouchers" Mode=""
+    Description="Name des Voucher Providers in OPNsense (Services -> Captive Portal -> Administration -> Vouchers)."
+    Type="Variable" Display="always" Required="true" Mask="false">Vouchers</Config>
+
+  <!-- Anzeige -->
+  <Config Name="WLAN SSID" Target="WIFI_SSID" Default="Gaeste-WLAN" Mode=""
+    Description="Name des Gaeste-WLANs. Wird nur zur Anzeige im Frontend verwendet."
+    Type="Variable" Display="always" Required="false" Mask="false">Gaeste-WLAN</Config>
+
+  <!-- Sicherheit -->
+  <Config Name="Secret Key" Target="SECRET_KEY" Default="" Mode=""
+    Description="Geheimer Schluessel fuer Flask Sessions. Bitte aendern! Mindestens 32 zufaellige Zeichen."
+    Type="Variable" Display="always" Required="true" Mask="true"></Config>
+
+</Container>

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>catcher-show</Name>
+  <Repository>ghcr.io/Xruchai86/catcher-show:latest</Repository>
+  <Registry>https://ghcr.io/</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/</Support>
+  <Project/>
+  <Overview>
+    [b]CATCHER // Show v3.4[/b]
+    
+    Live threat visualization for OPNsense Suricata events with persistent history.
+    
+    [b]NEW in v3.4:[/b]
+    [list]
+    [*]Persistent JSONL event store (survives container restart)
+    [*]Time-window slider: 30m / 60m / 3h / 6h / 12h / 18h / 24h
+    [*]Daily file rotation with configurable retention (default 7 days)
+    [*]Restored history on container startup
+    [/list]
+    
+    [b]Features:[/b]
+    [list]
+    [*]Animated attack arcs (Source → Home)
+    [*]Inbound/Outbound direction detection
+    [*]Suricata Alert + Anomaly + suspicious HTTP + suspect TLS
+    [*]TLS JA3/JA4 threat-intel via abuse.ch SSLBL (auto-updated)
+    [*]GeoIP enrichment with country centroid fallback
+    [*]Filter buttons by direction and event type
+    [*]Adaptive design: TV / Desktop / Tablet / Phone
+    [/list]
+    
+    [b]Access:[/b] http://[UNRAID-IP]:8090
+  </Overview>
+  <Category>Tools: Status:Stable Network:Management</Category>
+  <WebUI>http://[IP]:[PORT:8090]</WebUI>
+  <TemplateURL/>
+  <Icon>https://cdn-icons-png.flaticon.com/512/1067/1067256.png</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1735689600</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  
+  <Config Name="Web UI" Target="8090" Default="8090" Mode="tcp" Description="Web dashboard port" Type="Port" Display="always" Required="true" Mask="false">8090</Config>
+  
+  <Config Name="Syslog Port (UDP)" Target="5514" Default="5514" Mode="udp" Description="UDP port for Suricata EVE-JSON from OPNsense" Type="Port" Display="always" Required="true" Mask="false">5514</Config>
+  
+  <Config Name="Home Latitude" Target="HOME_LAT" Default="0.0" Mode="" Description="Your home location latitude (map center and arc target) - SET THIS" Type="Variable" Display="always" Required="true" Mask="false">0.0</Config>
+  
+  <Config Name="Home Longitude" Target="HOME_LON" Default="0.0" Mode="" Description="Your home location longitude - SET THIS" Type="Variable" Display="always" Required="true" Mask="false">0.0</Config>
+  
+  <Config Name="GeoIP Folder" Target="/data/geoip" Default="/mnt/user/appdata/catcher-show/geoip" Mode="ro" Description="Folder containing GeoLite2-City.mmdb and GeoLite2-ASN.mmdb" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/catcher-show/geoip</Config>
+  
+  <Config Name="Events Storage" Target="/data/events" Default="/mnt/user/appdata/catcher-show/events" Mode="rw" Description="Persistent JSONL event store. One file per day, auto-pruned by retention policy. NEW in v3.4." Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/catcher-show/events</Config>
+  
+  <Config Name="Threat Intel Cache" Target="/data/threatintel" Default="/mnt/user/appdata/catcher-show/threatintel" Mode="rw" Description="Persistent storage for downloaded abuse.ch JA3 fingerprint CSV" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/catcher-show/threatintel</Config>
+  
+  <Config Name="Watchlist Folder" Target="/data/watchlist" Default="/mnt/user/appdata/catcher-show/watchlist" Mode="ro" Description="User-defined JA3 watchlist (place ja3.txt here)" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/catcher-show/watchlist</Config>
+  
+  <Config Name="Persist Enabled" Target="PERSIST_ENABLED" Default="true" Mode="" Description="Enable persistent JSONL event store. Set to false for in-memory-only operation." Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+  
+  <Config Name="Retention Days" Target="RETENTION_DAYS" Default="7" Mode="" Description="How many days of event files to keep. Older files are auto-pruned hourly." Type="Variable" Display="advanced" Required="false" Mask="false">7</Config>
+  
+  <Config Name="History Hours" Target="HISTORY_HOURS" Default="24" Mode="" Description="Max time-window the slider can request (in hours)" Type="Variable" Display="advanced" Required="false" Mask="false">24</Config>
+  
+  <Config Name="Default Window Minutes" Target="DEFAULT_WINDOW_MINUTES" Default="60" Mode="" Description="Default slider position when a client connects" Type="Variable" Display="advanced" Required="false" Mask="false">60</Config>
+  
+  <Config Name="Max Events in Memory" Target="MAX_EVENTS_MEMORY" Default="5000" Mode="" Description="Soft cap on RAM-held events. Older events fall out but stay on disk." Type="Variable" Display="advanced" Required="false" Mask="false">5000</Config>
+  
+  <Config Name="Enabled Event Types" Target="ENABLED_EVENT_TYPES" Default="alert,anomaly,http,tls" Mode="" Description="Comma-separated: alert, anomaly, http, tls" Type="Variable" Display="advanced" Required="false" Mask="false">alert,anomaly,http,tls</Config>
+  
+  <Config Name="Threat Intel Auto-Update" Target="THREATINTEL_UPDATE_ENABLED" Default="true" Mode="" Description="Download abuse.ch JA3 fingerprints automatically (requires container internet)" Type="Variable" Display="advanced" Required="false" Mask="false">true</Config>
+  
+  <Config Name="Threat Intel Update Hours" Target="THREATINTEL_UPDATE_HOURS" Default="24" Mode="" Description="How often to download from abuse.ch (in hours)" Type="Variable" Display="advanced" Required="false" Mask="false">24</Config>
+  
+  <Config Name="WS Ping Interval" Target="WS_PING_INTERVAL" Default="30" Mode="" Description="WebSocket keepalive (seconds)" Type="Variable" Display="advanced" Required="false" Mask="false">30</Config>
+  
+  <Config Name="Log Level" Target="LOG_LEVEL" Default="INFO" Mode="" Description="DEBUG, INFO, WARNING, ERROR" Type="Variable" Display="advanced" Required="false" Mask="false">INFO</Config>
+</Container>
